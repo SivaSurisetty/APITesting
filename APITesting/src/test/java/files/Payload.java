@@ -103,4 +103,53 @@ public static String AddPlace(String Lat, String Long, String Accuracy, String N
 				+ "\r\n"
 				+ "";
 	}
+	
+	public static String libraryData() {
+		return "{\r\n"
+				+ "\r\n"
+				+ "\"name\":\"Learn Appium Automation with Java1234\",\r\n"
+				+ "\"isbn\":\"abcd\",\r\n"
+				+ "\"aisle\":\"227456\",\r\n"
+				+ "\"author\":\"John fore\"\r\n"
+				+ "}\r\n"
+				+ "";
+	}
+	public static String libraryData(String name,String isbn,String aisle,String author) {
+		return "{\r\n"
+				+ "\r\n"
+				+ "\"name\":\""+name+"\",\r\n"
+				+ "\"isbn\":\""+isbn+"\",\r\n"
+				+ "\"aisle\":\""+aisle+"\",\r\n"
+				+ "\"author\":\""+author+"\"\r\n"
+				+ "}\r\n"
+				+ "";
+	}
+	public static String libraryDataDelete(String bookID) {
+//		System.out.println( "{\r\n"
+//				+ "\r\n"
+//				+ "\"ID\":\""+bookID+"\"\r\n"
+//				+ "}\r\n"
+//				+ "");
+		
+		return "{\r\n"
+				+ "\r\n"
+				+ "\"ID\":\""+bookID+"\"\r\n"
+				+ "}\r\n"
+				+ "";
+	}
+	
+	public static String JiraLogin() {
+return "{\r\n"
+		+ "\"username\": \"sivaprasadsurisetty\",\r\n"
+		+ "\"password\": \"B4itfun!\"\r\n"
+		+ "} ";
+	}
+	public static String JiraAddComment() {
+		return "{\r\n"
+				+ "    \"body\": \"Commenting from Eclipse Testing pupose-- 2nd comment with attachment\",\r\n"
+				+ "    \"visibility\": {\r\n"
+				+ "        \"type\": \"role\",\r\n"
+				+ "        \"value\": \"Administrators\"\r\n"
+				+ "    }\r\n"
+				+ "}";}
 }

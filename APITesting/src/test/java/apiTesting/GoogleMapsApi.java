@@ -2,6 +2,10 @@ package apiTesting;
 
 import static org.testng.Assert.assertEquals;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import org.testng.annotations.Test;
 
 import files.Payload;
@@ -64,5 +68,17 @@ public class GoogleMapsApi {
 		
 	}
 	
+	@Test
+	public void AddPlaceStaticJson() throws IOException {
+		
+		RestAssured.baseURI = "https://rahulshettyacademy.com";
+		String Response1=
+		given().log().all().queryParam("key", "qaclick123").header("Content-Type", "application/json")
+		.body(new String(Files.readAllBytes(Paths.get("C:\\Users\\Admin\\git\\APITesting1\\APITesting\\src\\main\\java\\Resources\\StaticJson.json"))))
+		.when().post("maps/api/place/add/json")
+		.then().log().all().assertThat().statusCode(200).body("scope", equalTo("APP"))
+		.extract().response().asString();
+		System.out.println(Response1);
+	}
 	
 }

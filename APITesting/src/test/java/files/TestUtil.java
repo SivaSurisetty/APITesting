@@ -21,7 +21,7 @@ import org.apache.poi.*;
 
 public class TestUtil  {
 	
-	static String FilePath = "C:\\Users\\Admin\\eclipse-workspace\\APITesting\\src\\main\\java\\Resources\\TestData.xlsx";
+	static String FilePath = "C:\\Users\\Admin\\git\\APITesting1\\APITesting\\src\\main\\java\\Resources\\TestData.xlsx";
 	private static XSSFSheet sheet =null;
 	public static FileInputStream fis = null;
 	public static XSSFWorkbook workbook = null;
@@ -54,8 +54,31 @@ public class TestUtil  {
 		
 		
 		
+		
 		return data ;
 	}
+	
+	public static ArrayList<Object[]> LibraryApiTestData() throws IOException{
+		ArrayList<Object[]> data = new ArrayList<Object[]>();
+		fis = new FileInputStream(FilePath);
+		workbook = new XSSFWorkbook(fis);
+		sheet = workbook.getSheet("LibraryApi");
+		int rowCount = sheet.getLastRowNum()+1;
+		int colCount = sheet.getRow(0).getLastCellNum();
+		for(int i=2;i<=rowCount;i++) {
+			String name = getCellData("LibraryApi",i, "name");
+			String isbn = getCellData("LibraryApi",i, "isbn");
+			String aisle = getCellData("LibraryApi",i, "aisle");
+			String author = getCellData("LibraryApi",i, "author");
+			Object ob[] = {name,isbn,aisle,author};
+			data.add(ob);
+		}
+		
+		return data;
+	}
+	
+	
+	
 	public static String getCellData1(int RowNum,String Column) throws Exception {
 		DataFormatter formatter = new DataFormatter();
 		FileInputStream fis = new FileInputStream(FilePath);
@@ -116,6 +139,43 @@ public class TestUtil  {
 		
 	}
 	
+	public static String getCellData( String Sheet,int RowNum,String ColumnName) throws IOException {
+
+		if(RowNum<=0)
+			return "";
+		int colCount =-1;
+		fis = new FileInputStream(FilePath);
+		workbook = new XSSFWorkbook(fis);
+		sheet = workbook.getSheet(Sheet);
+		row = sheet.getRow(0);
+		for(int i=0;i<row.getLastCellNum();i++) {
+			if(row.getCell(i).getStringCellValue().trim().equals(ColumnName)) {
+				colCount =i;}
+			}
+		row=sheet.getRow(RowNum-1);
+		if(row==null)
+			return "";
+		
+		cell=row.getCell(colCount);
+		if(cell==null)
+			return"";
+		
+//		System.out.println("if statement : "+cell.getCellType().equals(CellType.STRING));
+//		System.out.println(cell.getCellType());
+
+		if(cell.getCellType().equals(CellType.STRING)){
+			return cell.getStringCellValue();
+		}else if(cell.getCellType().equals(CellType.NUMERIC)) {
+			return String.valueOf(cell.getNumericCellValue());
+		}else if(cell.getCellType()==CellType.BLANK) {
+			return "";
+		}	else {
+			return String.valueOf(cell.getBooleanCellValue());
+		}
+		
+		
+		
+	}
 	
 	
 	
